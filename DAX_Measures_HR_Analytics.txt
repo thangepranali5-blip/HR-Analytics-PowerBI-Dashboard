@@ -1,0 +1,126 @@
+HR ANALYTICS DASHBOARD
+DAX MEASURES & CALCULATED COLUMNS
+
+Project: HR Analytics Dashboard
+Tools: Power BI | Excel | Power Query | DAX
+
+
+============================================================
+1. DAX MEASURES
+============================================================
+
+1. Total Employees
+
+Total Employees =
+COUNTROWS(HR_Analytics)
+
+
+2. Attrition Count
+
+Attrition Count =
+CALCULATE(
+    COUNTROWS(HR_Analytics),
+    HR_Analytics[Attrition] = "Yes"
+)
+
+
+3. Active Employees
+
+Active Employees =
+CALCULATE(
+    COUNTROWS(HR_Analytics),
+    HR_Analytics[Attrition] = "No"
+)
+
+
+4. Attrition Rate
+
+Attrition Rate =
+DIVIDE(
+    [Attrition Count],
+    [Total Employees],
+    0
+)
+
+
+5. Average Age
+
+Average Age =
+AVERAGE(HR_Analytics[Age])
+
+
+6. Average Monthly Salary
+
+Average Monthly Salary =
+AVERAGE(HR_Analytics[MonthlyIncome])
+
+
+7. Average Years At Company
+
+Average Years At Company =
+AVERAGE(HR_Analytics[YearsAtCompany])
+
+
+============================================================
+2. CALCULATED COLUMNS
+============================================================
+
+1. Age Group
+
+Age Group =
+SWITCH(
+    TRUE(),
+    [Age] <= 25, "18-25",
+    [Age] <= 35, "26-35",
+    [Age] <= 45, "36-45",
+    [Age] <= 55, "46-55",
+    "56+"
+)
+
+
+2. Salary Group
+
+Salary Group =
+SWITCH(
+    TRUE(),
+    [MonthlyIncome] < 3000, "Below 3K",
+    [MonthlyIncome] < 6000, "3K - 6K",
+    [MonthlyIncome] < 10000, "6K - 10K",
+    [MonthlyIncome] < 15000, "10K - 15K",
+    "15K+"
+)
+
+
+3. Experience Group
+
+Experience Group =
+SWITCH(
+    TRUE(),
+    [TotalWorkingYears] <= 2, "0-2 Years",
+    [TotalWorkingYears] <= 5, "3-5 Years",
+    [TotalWorkingYears] <= 10, "6-10 Years",
+    [TotalWorkingYears] <= 20, "11-20 Years",
+    "20+ Years"
+)
+
+
+============================================================
+3. PROJECT KPI VALUES
+============================================================
+
+Total Employees        = 1,470
+Attrition Count        = 237
+Active Employees       = 1,233
+Attrition Rate         = 16.12%
+Average Age            = 36.92 years
+Average Monthly Salary = 6.50K
+Average Years Company  = 7.01 years
+
+
+============================================================
+4. NOTES
+============================================================
+
+The actual Power BI model and DAX are stored inside the .pbix file.
+This .txt file is a readable DAX documentation file for the GitHub
+portfolio repository.
